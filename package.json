@@ -1,7 +1,7 @@
 {
   "name": "cosmos",
   "version": "1.0.0",
-  "description": "This repo is to experiment with an demostrate the capabilities of Node.js",
+  "description": "This repo is to experiment with and demonstrate the capabilities of Node.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
