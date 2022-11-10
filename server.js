@@ -142,6 +142,11 @@ app.post(
   }
 );
 
+
+app.get("/git", (req, res) => {
+  res.json({message: "This is coming from Main branch"});
+});
+
 https
   .createServer(
     {
