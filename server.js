@@ -119,6 +119,11 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/git", (req, res) => {
+  res.json({message: "This is coming from Satish branch"});
+})
+
+
 app.post(
   "/validate",
   [
