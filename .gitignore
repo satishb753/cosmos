@@ -2,3 +2,5 @@ node_modules/
 cert.pem
 key.pem
 .env
+
+log/*.log

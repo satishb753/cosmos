@@ -8,9 +8,13 @@ const { Strategy } = require("passport-google-oauth20");
 const { verify } = require("crypto");
 const { fileURLToPath } = require("url");
 const cookieSession = require("cookie-session");
+const mysql = require("mysql2")
+
 const { check, body } = require("express-validator");
 
 require("dotenv").config();
+
+const authRoutes = require("./routes/authRoutes");
 
 const certificate = fs.readFileSync("./cert.pem");
 const privateKey = fs.readFileSync("./key.pem");
@@ -57,6 +61,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json());
 
 function checkLoggedIn(req, res, next) {
   console.log("Current user is: ", req.user);
@@ -133,7 +138,7 @@ app.post(
         // console.log(req);
         return true;
       }),
-    body("password").isLength({min:5}).isAlphanumeric()
+    body("password").isLength({ min: 5 }).isAlphanumeric(),
   ],
   (req, res) => {
     console.log(req.body.password);
@@ -142,10 +147,11 @@ app.post(
   }
 );
 
-
 app.get("/git", (req, res) => {
-  res.json({message: "This is coming from Main branch"});
+  res.json({ message: "This is coming from Main branch" });
 });
+
+app.use("/api/auth/", authRoutes);
 
 https
   .createServer(
