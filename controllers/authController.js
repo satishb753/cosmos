@@ -16,7 +16,7 @@ const loginUser = (req, res) => {
 
 const signUpUser = (req, res) => {
   const { name, email, password } = req.body;
-  authLog({name, email, password})
+  authLog({name, email})
 
   console.log("name'", name, "'password'", password, "'email'", email,"'");
   const salt = bcrypt.genSaltSync(10);

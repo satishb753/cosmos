@@ -9,28 +9,21 @@ const authLog = (data) => {
   data = util.format(data);
   try {
     if (!fs.existsSync(path)) {
-      const logFile = fs.createWriteStream(path, { flags: "a" });
+      const logFile = fs.createWriteStream(path, { flags: "w" });
       logFile.write(data + "\n");
     } else {
       fs.appendFileSync(path, data + "\n");
-      throw new Error("This will be logged to error file")
+      throw new Error("This will be logged to error on " + new Date(Date.now()).toUTCString())
     }
   } catch (err) {
-    console.log(err);
-    console.log(err);
-    // const formattedErr = util.format(err + '\n\n')
-    const formattedErr = util.format(err + '\n\n')
-    console.log("formatted Error: ",formattedErr);
     if(!fs.existsSync(errFilePath)){
-      const errFile = fs.createWriteStream(errFilePath, {flags: "a"})
-      errFile.write(formattedErr)
+      const errFile = fs.createWriteStream(errFilePath, {flags: "w"})
+      errFile.write(util.format(err) + '\n\n')
     } else {
-      console.log("In the append error zone");
-      fs.appendFileSync(errFilePath, err.toString(), {flags:'a'})
+      fs.appendFileSync(errFilePath, util.format(err)+'\n\n')
     }
-    // console.log(err);
   }
-  logStdout.write(data+' This is process.stdout\n')
+  logStdout.write(util.format(data)+' This is process.stdout\n')
 };
 
 module.exports = { authLog };
