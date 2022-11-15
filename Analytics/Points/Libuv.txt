@@ -1,0 +1,3 @@
+Microtasks in C++ libuv library have higher precedence over macrotasks. So at each loop run, 
+event loop first checks the micro task queue and then the macrotask queue. Promise.then spawns microtask,
+setTimeout spawns macro.
